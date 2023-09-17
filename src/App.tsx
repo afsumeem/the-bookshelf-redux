@@ -1,7 +1,9 @@
+import MainLayout from "./layouts/MainLayout";
+
 function App() {
   return (
     <>
-      <h1>the book shelf</h1>
+      <MainLayout />
     </>
   );
 }
