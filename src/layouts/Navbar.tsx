@@ -8,8 +8,8 @@ export default function Navbar() {
       </a>
 
       <div className="navbar-end ">
-        <div className="dropdown me-40">
-          <label tabIndex={0} className="btn btn-ghost lg:hidden text-white ">
+        <details className="dropdown dropdown-end">
+          <summary tabIndex={0} className="btn btn-ghost lg:hidden text-white ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -24,7 +24,8 @@ export default function Navbar() {
                 d="M4 6h16M4 12h8m-8 6h16"
               />
             </svg>
-          </label>
+          </summary>
+
           <ul
             tabIndex={0}
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-blue-950 rounded-box w-52"
@@ -71,7 +72,7 @@ export default function Navbar() {
               </a>
             </li>
           </ul>
-        </div>
+        </details>
       </div>
       <div className="navbar-end hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
