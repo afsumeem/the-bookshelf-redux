@@ -53,7 +53,7 @@ export default function SignUp() {
         </h5>
         <h5 className="text-center text-normal mt-4">
           Back to{" "}
-          <span className="text-blue-800 underline ">
+          <span className="text-blue-800 underline font-bold">
             {" "}
             <Link to="/">Home</Link>
           </span>
