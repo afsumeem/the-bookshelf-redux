@@ -1,0 +1,20 @@
+[
+    {
+      "title": "Haylou GST",
+      "image": "https://i.ibb.co/WkrG6QC/image-1.jpg",
+      "author": " J. K. Rowling",
+      "genre": "Fantasy",
+      "publicationDate": "26-06-1997",
+      "reviews": ["nice","joss"]
+    },
+    {
+      "title": "Haylou GST",
+      "image": "https://i.ibb.co/WkrG6QC/image-1.jpg",
+      "Author": " J. K. Rowling",
+      "genre": "Fantasy",
+      "publicationDate": "26-06-1997",
+      "reviews": ["nice","joss"]
+    }
+    
+   
+  ]
