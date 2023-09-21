@@ -72,24 +72,34 @@ export default function Navbar() {
                 </li>
               </ul>
             </li>
-            <li>
-              <a className="text-slate-200 hover:text-white text-base">
-                {" "}
-                <Link to="/signin">Sign In</Link>
-              </a>
-            </li>
-            <li>
-              <a className="text-slate-200 hover:text-white text-base">
-                {" "}
-                <Link to="/signup">Sign Up</Link>
-              </a>
-            </li>
-            <li>
-              <a className="text-slate-200 hover:text-white text-base">
-                {" "}
-                <Link to="/">Logout</Link>
-              </a>
-            </li>
+
+            {/* user sign in & sign up */}
+            {!user.email && (
+              <>
+                <li>
+                  <a className="text-slate-200 hover:text-white text-base">
+                    {" "}
+                    <Link to="/signin">Sign In</Link>
+                  </a>
+                </li>
+                <li>
+                  <a className="text-slate-200 hover:text-white text-base">
+                    {" "}
+                    <Link to="/signup">Sign Up</Link>
+                  </a>
+                </li>
+              </>
+            )}
+
+            {/* logout */}
+            {!user.email && (
+              <li>
+                <a className="text-slate-200 hover:text-white text-base">
+                  {" "}
+                  <Link to="/">Logout</Link>
+                </a>
+              </li>
+            )}
           </ul>
         </details>
       </div>
