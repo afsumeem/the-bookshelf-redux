@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useAppDispatch } from "../redux/hook";
+import { useAppDispatch, useAppSelector } from "../redux/hook";
 import { createUser } from "../redux/features/users/userSlice";
+import { useEffect } from "react";
 
 interface SignUpFormInput {
   email: string;
@@ -16,6 +17,9 @@ export default function SignUp() {
   } = useForm<SignUpFormInput>();
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const { user, isLoading } = useAppSelector((state) => state.user);
 
   // create user
 
@@ -23,6 +27,12 @@ export default function SignUp() {
     console.log(data);
     dispatch(createUser({ email: data.email, password: data.password }));
   };
+
+  useEffect(() => {
+    if (user.email && !isLoading) {
+      navigate("/");
+    }
+  }, [user.email, isLoading, navigate]);
 
   return (
     <div className="bg-bgGradient min-h-screen flex  items-center">

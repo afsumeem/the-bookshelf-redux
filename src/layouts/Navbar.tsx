@@ -92,7 +92,7 @@ export default function Navbar() {
             )}
 
             {/* logout */}
-            {!user.email && (
+            {user.email && (
               <li>
                 <a className="text-slate-200 hover:text-white text-base">
                   {" "}
