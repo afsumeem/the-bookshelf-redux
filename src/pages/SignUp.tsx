@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
 import { createUser } from "../redux/features/users/userSlice";
@@ -18,6 +18,8 @@ export default function SignUp() {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.path || "/";
 
   const { user, isLoading } = useAppSelector((state) => state.user);
 
@@ -30,9 +32,9 @@ export default function SignUp() {
 
   useEffect(() => {
     if (user.email && !isLoading) {
-      navigate("/");
+      navigate(from, { replace: true });
     }
-  }, [user.email, isLoading, navigate]);
+  }, [user.email, isLoading, navigate, from]);
 
   return (
     <div className="bg-bgGradient min-h-screen flex  items-center">

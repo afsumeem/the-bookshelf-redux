@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -22,6 +22,8 @@ export default function Login() {
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.path || "/";
 
   // user login
 
@@ -32,9 +34,9 @@ export default function Login() {
 
   useEffect(() => {
     if (user.email && !isLoading) {
-      navigate("/");
+      navigate(from, { replace: true });
     }
-  }, [user.email, isLoading, navigate]);
+  }, [user.email, isLoading, navigate, from]);
 
   return (
     <div className="bg-bgGradient min-h-screen flex  items-center">
