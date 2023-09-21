@@ -11,7 +11,7 @@ export default function BookCard({ book }: IProps) {
     <div>
       <div className="card bg-base-400 shadow-xl border border-state-400">
         <figure>
-          <Link to={`/books-details/${book._id}`}>
+          <Link to={`/book-details/${book._id}`}>
             <img
               className="h-64 mt-8 hover:scale-125 transition duration-1000"
               src={book.image}

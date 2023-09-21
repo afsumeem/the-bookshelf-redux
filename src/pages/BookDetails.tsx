@@ -1,17 +1,47 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useParams } from "react-router-dom";
+import { useSingleBookQuery } from "../redux/features/books/booksApi";
+import { BiSolidHeart } from "react-icons/bi";
+
 export default function BookDetails() {
+  const { id } = useParams();
+
+  const { data: book, isLoading, error } = useSingleBookQuery(id);
+  console.log(book);
+
   return (
-    <div className="card lg:card-side bg-base-100 shadow-xl">
+    <div className="card lg:card-side bg-base-100 shadow-xl my-24 mx-8">
       <figure>
-        <img
-          src="/images/stock/photo-1494232410401-ad00d5433cfa.jpg"
-          alt="Album"
-        />
+        <img src={book?.image} alt={book?.title} />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">New album is released!</h2>
-        <p>Click the button to listen on Spotiwhy app.</p>
+        <h2 className="card-title uppercase text-2xl font-bold mb-8">
+          {book?.title}
+          <span className="badge lowercase badge-ghost">{book?.genre}</span>
+        </h2>
+
+        <h2>
+          by <span>{book?.author}</span>
+        </h2>
+
+        <h4 className="">
+          Publication Date:
+          <span> {book?.publicationDate}</span>
+        </h4>
         <div className="card-actions justify-end">
           <button className="btn btn-primary">Listen</button>
+          <button className="btn text-blue-950 hover:text-white font-bold bg-slate-400 hover:bg-blue-950 transition duration-1000">
+            <BiSolidHeart />
+          </button>
+        </div>
+        <div>
+          <h2 className="text-xl font-bold ">Reviews about this book!</h2>
+          <hr />
+          <ol className="space-y-1 text-lg">
+            {book?.reviews?.map((review: string) => (
+              <li key={review}> - {review}</li>
+            ))}
+          </ol>
         </div>
       </div>
     </div>
