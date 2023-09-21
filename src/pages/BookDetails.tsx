@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useParams } from "react-router-dom";
 import { useSingleBookQuery } from "../redux/features/books/booksApi";
-import { BiSolidHeart } from "react-icons/bi";
+import {
+  BiSolidHeart,
+  BiSolidTrash,
+  BiBookReader,
+  BiEditAlt,
+} from "react-icons/bi";
 
 export default function BookDetails() {
   const { id } = useParams();
@@ -29,9 +34,17 @@ export default function BookDetails() {
           <span> {book?.publicationDate}</span>
         </h4>
         <div className="card-actions justify-end">
-          <button className="btn btn-primary">Listen</button>
           <button className="btn text-blue-950 hover:text-white font-bold bg-slate-400 hover:bg-blue-950 transition duration-1000">
             <BiSolidHeart />
+          </button>
+          <button className="btn text-blue-950 hover:text-white font-bold bg-slate-300 hover:bg-blue-800 transition duration-1000">
+            <BiBookReader />
+          </button>
+          <button className="btn text-green-950 hover:text-white font-bold bg-green-400 hover:bg-green-800 transition duration-1000">
+            <BiEditAlt />
+          </button>
+          <button className="btn text-red-800 hover:text-white font-bold bg-red-300 hover:bg-red-600 transition duration-1000">
+            <BiSolidTrash />
           </button>
         </div>
         <div>
