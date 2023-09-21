@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useAppDispatch } from "../redux/hook";
+import { createUser } from "../redux/features/users/userSlice";
 
 interface SignUpFormInput {
   email: string;
