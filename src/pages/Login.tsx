@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
+import { loginUser } from "../redux/features/users/userSlice";
 
 interface LoginFormInput {
   email: string;
@@ -21,6 +22,8 @@ export default function Login() {
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
+
+  // user login
 
   const onSubmit = (data: LoginFormInput) => {
     console.log(data);

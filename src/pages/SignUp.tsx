@@ -17,6 +17,8 @@ export default function SignUp() {
 
   const dispatch = useAppDispatch();
 
+  // create user
+
   const onSubmit = (data: SignUpFormInput) => {
     console.log(data);
     dispatch(createUser({ email: data.email, password: data.password }));

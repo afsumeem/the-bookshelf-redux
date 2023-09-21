@@ -1,7 +1,26 @@
 import { Link } from "react-router-dom";
+import { setUser } from "../redux/features/users/userSlice";
+import { signOut } from "firebase/auth";
+import { useAppDispatch, useAppSelector } from "../redux/hook";
+import { auth } from "../firebase/firebase";
 
 export default function Navbar() {
+  const { user } = useAppSelector((state) => state.user);
+
+  const dispatch = useAppDispatch();
+
+  // logout functionality
+
+  const handleLogOut = () => {
+    console.log("logout");
+    signOut(auth).then(() => {
+      dispatch(setUser(null));
+    });
+  };
+
   return (
+    // navbar start
+
     <nav className="navbar bg-blue-950 flex justify-between">
       <a className="btn btn-ghost hover:bg-inherit text-white normal-case text-xl ">
         The BookShelf
@@ -92,24 +111,35 @@ export default function Navbar() {
               <Link to="/add-new-book">Add New Book</Link>
             </a>
           </li>
-          <li>
-            <a className="text-slate-200 hover:text-white text-base">
-              {" "}
-              <Link to="/signin">Sign In</Link>
-            </a>
-          </li>
-          <li>
-            <a className="text-slate-200 hover:text-white text-base">
-              {" "}
-              <Link to="/signup">Sign Up</Link>
-            </a>
-          </li>
-          <li>
-            <a className="text-slate-200 hover:text-white text-base">
-              {" "}
-              <Link to="/">Logout</Link>
-            </a>
-          </li>
+
+          {/* user sign in & sign up */}
+
+          {!user.email && (
+            <>
+              <li>
+                <a className="text-slate-200 hover:text-white text-base">
+                  {" "}
+                  <Link to="/signin">Sign In</Link>
+                </a>
+              </li>
+              <li>
+                <a className="text-slate-200 hover:text-white text-base">
+                  {" "}
+                  <Link to="/signup">Sign Up</Link>
+                </a>
+              </li>
+            </>
+          )}
+
+          {/* logout */}
+          {user.email && (
+            <li onClick={handleLogOut}>
+              <a className="text-slate-200 hover:text-white text-base">
+                {" "}
+                <Link to="/">Logout</Link>
+              </a>
+            </li>
+          )}
         </ul>
       </div>
     </nav>
