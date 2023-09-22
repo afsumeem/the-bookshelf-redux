@@ -15,20 +15,30 @@ export default function AllBooks() {
             <div>
               <input
                 className="input input-bordered join-item"
-                placeholder="Search"
+                placeholder="Search here"
               />
             </div>
           </div>
           <select className="select select-bordered join-item">
             <option disabled selected>
-              Filter
+              Genre
+            </option>
+            <option>Sci-fi</option>
+            <option>Drama</option>
+            <option>Action</option>
+          </select>
+          <select className="select select-bordered join-item">
+            <option disabled selected>
+              Publication Year
             </option>
             <option>Sci-fi</option>
             <option>Drama</option>
             <option>Action</option>
           </select>
           <div className="indicator">
-            <button className="btn join-item">Search</button>
+            <button className="btn rounded rounded-r-lg text-blue-950 hover:text-white  bg-slate-400 hover:bg-blue-950 transition duration-1000">
+              Search
+            </button>
           </div>
         </div>
       </div>
