@@ -7,13 +7,33 @@ export default function AllBooks() {
   const { data, isLoading, error } = useGetBooksQuery(undefined);
 
   return (
-    <div className="container mx-auto px-2">
-      <div>
-        <h2 className="text-5xl font-bold pt-10 pb-20 text-center">
-          All Books
-        </h2>
+    <div>
+      <h2 className="text-5xl font-bold py-10 text-center">All Books</h2>
+      <div className="bg-blue-950 h-24 flex items-center justify-center w-full">
+        <div className="join">
+          <div>
+            <div>
+              <input
+                className="input input-bordered join-item"
+                placeholder="Search"
+              />
+            </div>
+          </div>
+          <select className="select select-bordered join-item">
+            <option disabled selected>
+              Filter
+            </option>
+            <option>Sci-fi</option>
+            <option>Drama</option>
+            <option>Action</option>
+          </select>
+          <div className="indicator">
+            <button className="btn join-item">Search</button>
+          </div>
+        </div>
       </div>
-      <div className="col-span-9 grid sm:grid-cols-1 md:grid-cols-4  gap-10 pb-20">
+
+      <div className="col-span-9 px-2 grid sm:grid-cols-1 md:grid-cols-4  gap-10 pb-20">
         {data?.data?.map((book: IBook) => (
           <BookCard book={book} />
         ))}

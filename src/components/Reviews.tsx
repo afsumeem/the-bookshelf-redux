@@ -65,7 +65,7 @@ export default function Reviews({ id }: IProps) {
         <h3 className="text-xl font-bold uppercase mb-8">All Reviews</h3>
         {data?.reviews?.map((review: string, index: number) => (
           <div key={index} className="flex gap-3 items-center mb-5">
-            <p className="italic"> - {review}</p>
+            <p className="italic "> - {review}</p>
           </div>
         ))}
       </div>
