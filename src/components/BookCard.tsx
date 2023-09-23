@@ -7,6 +7,7 @@ interface IProps {
 }
 
 export default function BookCard({ book }: IProps) {
+  console.log(book);
   return (
     <div>
       <div className="card bg-base-400 shadow-xl border border-state-400">

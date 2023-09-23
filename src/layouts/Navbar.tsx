@@ -23,7 +23,7 @@ export default function Navbar() {
 
     <nav className="navbar bg-blue-950 flex justify-between">
       <a className="btn btn-ghost hover:bg-inherit text-white normal-case text-xl ">
-        The BookShelf
+        <Link to="/"> The BookShelf</Link>
       </a>
 
       <div className="navbar-end ">

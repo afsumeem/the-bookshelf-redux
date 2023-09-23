@@ -5,7 +5,11 @@ const bookApi = api.injectEndpoints({
     // get books
 
     getBooks: builder.query({
-      query: () => "/books",
+      query: ({ search, genre, publicationYear }) => ({
+        url: "/books",
+        params: { search, genre, publicationYear },
+        providesTags: ["addNewBook", "deleteBook"],
+      }),
     }),
 
     //get single book
