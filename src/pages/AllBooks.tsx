@@ -49,81 +49,76 @@ export default function AllBooks() {
           <input
             type="text"
             onChange={(e) => setSearchText(e.target.value)}
-            className="input input-bordered join-item"
+            className="input input-bordered join-item w-96"
             placeholder="Search here"
           />
-          <button
-            type="submit"
-            className="btn rounded text-blue-950 hover:text-white  bg-slate-400 hover:bg-blue-950 transition duration-1000"
-          >
-            Search
-          </button>
         </form>
       </div>
 
-      {/*  filter */}
+      {/*  filter and get books section */}
 
-      <div className=" px-2 flex gap-10 justify-around">
+      <div className=" px-2 flex flex-col md:flex-row gap-10 justify-around">
         {/* filter  */}
 
-        {/* genre filter */}
-        <div className="bg-blue-950 my-8 w-72 text-white">
-          <button
-            onClick={() => {
-              setSelectGenre("");
-              setSelectPYear("");
-            }}
-            className="btn w-full rounded-none text-blue-950 hover:text-white  bg-slate-400 hover:bg-blue-950 transition duration-1000"
-          >
-            Reset Filter
-          </button>
+        <div className=" my-8  mt-8 flex items-center justify-center text-white">
+          <div className="bg-blue-950 w-72">
+            <button
+              onClick={() => {
+                setSelectGenre("");
+                setSelectPYear("");
+              }}
+              className="btn w-full rounded-none text-blue-950 hover:text-white  bg-slate-400 hover:bg-blue-950 transition duration-1000"
+            >
+              Reset Filter
+            </button>
+            {/* genre filter */}
+            <div className="m-2 text-white">
+              <h2 className="font-bold my-4 text-center uppercase">Genre</h2>
+              {bookGenre?.map((genre, i) => {
+                return (
+                  <div key={i} className="flex items-center ml-4 mb-[8px]">
+                    <input
+                      onChange={() => setSelectGenre(genre)}
+                      className="h-3 w-3"
+                      id={genre}
+                      type="radio"
+                      name="genre"
+                      checked={selectGenre === genre}
+                    />
+                    <label className="text-[14px] ml-4" htmlFor={genre}>
+                      {genre}
+                    </label>
+                  </div>
+                );
+              })}
+            </div>
 
-          <div className="m-2 text-white">
-            <h2 className="font-bold my-4 text-center uppercase">Genre</h2>
-            {bookGenre?.map((genre, i) => {
-              return (
-                <div key={i} className="flex items-center ml-4 mb-[8px]">
-                  <input
-                    onChange={() => setSelectGenre(genre)}
-                    className="h-3 w-3"
-                    id={genre}
-                    type="radio"
-                    name="genre"
-                    checked={selectGenre === genre}
-                  />
-                  <label className="text-[14px] ml-4" htmlFor={genre}>
-                    {genre}
-                  </label>
-                </div>
-              );
-            })}
-          </div>
-          {""}
-          <h2 className="font-bold mt-8 mb-4  text-center uppercase ">
-            Publication Year
-          </h2>
-          <div className="m-2">
-            {publicationYear?.map((year, i) => {
-              return (
-                <div key={i} className="flex ml-4 items-center mb-[8px]">
-                  <input
-                    onChange={() => setSelectPYear(year)}
-                    className="h-3 w-3"
-                    id={year}
-                    type="radio"
-                    name="year"
-                    checked={selectPYear === year}
-                  />
-                  <label className="text-[14px] ml-3" htmlFor={year}>
-                    {year}
-                  </label>
-                </div>
-              );
-            })}
+            {/* publication year filter */}
+
+            <h2 className="font-bold mt-8 mb-4  text-center uppercase ">
+              Publication Year
+            </h2>
+            <div className="m-2">
+              {publicationYear?.map((year, i) => {
+                return (
+                  <div key={i} className="flex ml-4 items-center mb-[8px]">
+                    <input
+                      onChange={() => setSelectPYear(year)}
+                      className="h-3 w-3"
+                      id={year}
+                      type="radio"
+                      name="year"
+                      checked={selectPYear === year}
+                    />
+                    <label className="text-[14px] ml-3" htmlFor={year}>
+                      {year}
+                    </label>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
-
-        {/* publication year filter */}
 
         {/* books */}
         <div className="mt-8 flex items-center justify-center">
