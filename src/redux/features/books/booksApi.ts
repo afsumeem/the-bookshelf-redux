@@ -2,7 +2,14 @@ import { api } from "../../api/apiSlice";
 
 const bookApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    // get books
+    //get latest books
+    getLatestBooks: builder.query({
+      query: () => ({
+        url: "/latest-books",
+        providesTags: ["books"],
+      }),
+    }),
+    // get all books
 
     getBooks: builder.query({
       query: ({ search, genre, publicationYear }) => ({
@@ -49,6 +56,7 @@ const bookApi = api.injectEndpoints({
 });
 
 export const {
+  useGetLatestBooksQuery,
   useGetBooksQuery,
   useSingleBookQuery,
   usePostReviewMutation,

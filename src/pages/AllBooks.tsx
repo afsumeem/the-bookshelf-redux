@@ -128,15 +128,9 @@ export default function AllBooks() {
             </div>
           ) : (
             <div className="col-span-9 px-2 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-10 pb-20">
-              {data?.data?.map((book: IBook, index: number) => {
-                // <BookCard key={index} book={book} />
-                return (
-                  <Link key={index} to={`/book-details/${book._id}`}>
-                    {/* <Card book={book} /> */}
-                    <BookCard book={book}></BookCard>
-                  </Link>
-                );
-              })}
+              {data?.data?.map((book: IBook, index: number) => (
+                <BookCard key={index} book={book} />
+              ))}
             </div>
           )}
         </div>
