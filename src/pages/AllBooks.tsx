@@ -4,8 +4,10 @@ import BookCard from "../components/BookCard";
 import { useGetBooksQuery } from "../redux/features/books/booksApi";
 import { IBook } from "../types/types";
 import { useState } from "react";
+import { useAppSelector } from "../redux/hook";
 
 export default function AllBooks() {
+  const { user } = useAppSelector((state) => state.user);
   //
 
   const bookGenre = [
@@ -42,41 +44,48 @@ export default function AllBooks() {
   console.log(data);
 
   return (
-    <div>
-      <h2 className="text-5xl font-bold py-10 text-center">All Books</h2>
-      <div className="bg-blue-950 h-24 flex items-center justify-center w-full">
-        <form className="join">
+    <div className="mx-auto">
+      <h2 className="text-5xl font-bold py-10 text-center ">All Books</h2>
+      <div className="bg-blue-950 h-24 flex items-center w-full">
+        <form className="join mx-auto w-2/3">
           <input
             type="text"
             onChange={(e) => setSearchText(e.target.value)}
-            className="input input-bordered join-item w-96"
+            className="input input-bordered join-item w-full md:w-2/3 md:mx-auto"
             placeholder="Search here"
           />
         </form>
+        {user.email && (
+          <Link to="/add-new-book">
+            {" "}
+            <button className="btn mx-8 rounded text-blue-950 hover:text-white  bg-slate-400 hover:bg-blue-950 transition duration-1000">
+              Add new book
+            </button>{" "}
+          </Link>
+        )}
       </div>
 
       {/*  filter and get books section */}
 
-      <div className=" px-2 flex flex-col md:flex-row gap-10 justify-around">
+      <div className="m-8 flex flex-col md:flex-row gap-2 justify-between">
         {/* filter  */}
 
-        <div className=" my-8  mt-8 flex items-center justify-center text-white">
-          <div className="bg-blue-950 w-72">
+        <div className=" flex justify-center text-white  gap-8 w-full md:w-1/4 md:justify-start md:flex-col md:gap-0">
+          <div className="bg-blue-950">
             <button
               onClick={() => {
                 setSelectGenre("");
-                setSelectPYear("");
               }}
               className="btn w-full rounded-none text-blue-950 hover:text-white  bg-slate-400 hover:bg-blue-950 transition duration-1000"
             >
-              Reset Filter
+              Reset Genre
             </button>
             {/* genre filter */}
-            <div className="m-2 text-white">
+            <div className="mx-2 mb-8 text-white">
               <h2 className="font-bold my-4 text-center uppercase">Genre</h2>
               {bookGenre?.map((genre, i) => {
                 return (
-                  <div key={i} className="flex items-center ml-4 mb-[8px]">
+                  <div key={i} className="flex items-center ml-4 mb-2">
                     <input
                       onChange={() => setSelectGenre(genre)}
                       className="h-3 w-3"
@@ -92,10 +101,19 @@ export default function AllBooks() {
                 );
               })}
             </div>
+          </div>
 
-            {/* publication year filter */}
-
-            <h2 className="font-bold mt-8 mb-4  text-center uppercase ">
+          {/* publication year filter */}
+          <div className="bg-blue-950">
+            <button
+              onClick={() => {
+                setSelectPYear("");
+              }}
+              className="btn w-full rounded-none text-blue-950 hover:text-white  bg-slate-400 hover:bg-blue-950 transition duration-1000"
+            >
+              Reset Publication year
+            </button>
+            <h2 className="font-bold my-4  text-center uppercase ">
               Publication Year
             </h2>
             <div className="m-2">
@@ -121,17 +139,21 @@ export default function AllBooks() {
         </div>
 
         {/* books */}
-        <div className="mt-8 flex items-center justify-center">
-          {isLoading ? (
-            <div>
-              <h3 className="text-3xl font-[500] text-center">Loading...</h3>
-            </div>
+        <div className="w-full md:w-3/4">
+          {data?.data?.length === 0 ? (
+            <h2 className="text-center text-2xl">Data not found</h2>
           ) : (
-            <div className="col-span-9 px-2 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-10 pb-20">
-              {data?.data?.map((book: IBook, index: number) => (
-                <BookCard key={index} book={book} />
-              ))}
-            </div>
+            <>
+              {isLoading ? (
+                <h3 className="text-3xl font-[500] text-center">Loading...</h3>
+              ) : (
+                <div className="col-span-9 px-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-10 ">
+                  {data?.data?.map((book: IBook, index: number) => (
+                    <BookCard key={index} book={book} />
+                  ))}
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>

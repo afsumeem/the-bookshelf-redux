@@ -31,7 +31,6 @@ const routes = createBrowserRouter([
         element: (
           <PrivateRoutes>
             <AddNewBook />
-            //{" "}
           </PrivateRoutes>
         ),
       },
