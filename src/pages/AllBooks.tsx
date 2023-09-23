@@ -10,24 +10,8 @@ export default function AllBooks() {
   const { user } = useAppSelector((state) => state.user);
   //
 
-  const bookGenre = [
-    "Classic",
-    "Mystery",
-    "Fiction",
-    "Young Adult Fantasy",
-    "Fantasy",
-  ];
-  const publicationYear = [
-    "1950",
-    "1960",
-    "1813",
-    "1925",
-    "2018",
-    "1988",
-    "1951",
-    "1997",
-    "1954",
-  ];
+  const bookGenre = ["Mystery", "Fiction", "Fantasy"];
+  const publicationYear = ["2000", "1995", "2002"];
 
   //search and filter functionality for books
 
@@ -56,10 +40,10 @@ export default function AllBooks() {
           />
         </form>
         {user.email && (
-          <Link to="/add-new-book">
+          <Link to="/add-book">
             {" "}
             <button className="btn mx-8 rounded text-blue-950 hover:text-white  bg-slate-400 hover:bg-blue-950 transition duration-1000">
-              Add new book
+              Add new
             </button>{" "}
           </Link>
         )}
@@ -85,7 +69,7 @@ export default function AllBooks() {
               <h2 className="font-bold my-4 text-center uppercase">Genre</h2>
               {bookGenre?.map((genre, i) => {
                 return (
-                  <div key={i} className="flex items-center ml-4 mb-2">
+                  <div key={i} className="flex items-center mx-4 mb-2">
                     <input
                       onChange={() => setSelectGenre(genre)}
                       className="h-3 w-3"
@@ -119,7 +103,7 @@ export default function AllBooks() {
             <div className="m-2">
               {publicationYear?.map((year, i) => {
                 return (
-                  <div key={i} className="flex ml-4 items-center mb-[8px]">
+                  <div key={i} className="flex mx-4 items-center mb-[8px]">
                     <input
                       onChange={() => setSelectPYear(year)}
                       className="h-3 w-3"

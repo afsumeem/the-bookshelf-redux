@@ -1,17 +1,174 @@
-// interface IBookInfo {
-
-//   title: string;
-//   author: string;
-//   genre: string;
-//   publicationDate: string;
-//   email: string;
-//   image: string;
-
-//   reviews?: [];
-// }
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../redux/hook";
+import { IBookInfo } from "../types/types";
+import { ChangeEvent, useState, FormEvent } from "react";
+import { useAddBookMutation } from "../redux/features/books/booksApi";
 
 const AddNewBook = () => {
-  return <div>add new book</div>;
+  const navigate = useNavigate();
+
+  const { email } = useAppSelector((state) => state.user.user);
+  const [addBook] = useAddBookMutation();
+
+  const [load, setLoad] = useState(false);
+
+  const [bookInfo, setBookInfo] = useState<IBookInfo>({
+    email: "",
+    title: "",
+    author: "",
+    genre: "",
+    publicationDate: "",
+    image: "",
+  });
+
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    setBookInfo({ ...bookInfo, [e.target.name]: e.target.value });
+  };
+
+  //
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    if (email) {
+      bookInfo.email = email;
+      bookInfo.reviews = [];
+    }
+    setLoad(true);
+    try {
+      const response: any = await addBook(bookInfo);
+      console.log(response);
+      if (response?.data) {
+        alert("success");
+        // Reset the form fields
+        setBookInfo({
+          email: "",
+          title: "",
+          author: "",
+          genre: "",
+          publicationDate: "",
+          image: "",
+        });
+        setLoad(false);
+
+        navigate("/books");
+      } else {
+        alert("failed");
+        setLoad(false);
+      }
+    } catch (error) {
+      console.error("Error adding book:", error);
+      alert("An error occurred while adding the book");
+    }
+  };
+  return (
+    <div className="mx-auto bg-slate-300 py-8">
+      <h2 className="text-5xl font-bold py-10 text-center ">Add New Book</h2>
+      <form
+        onSubmit={handleSubmit}
+        className="mb-6 flex flex-col justify-center items-center"
+      >
+        {/* book title */}
+        <div className="mb-6 flex flex-col w-2/4">
+          <label htmlFor="title" className="text-lg font-bold mb-2">
+            Book Title
+          </label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            value={bookInfo.title}
+            onChange={handleChange}
+            className="input input-bordered border-blue-600 "
+            placeholder="Book Title"
+            required
+          />
+        </div>
+
+        {/* author name */}
+        <div className="mb-6 flex flex-col w-2/4">
+          <label htmlFor="author" className="text-lg font-bold mb-2">
+            Author Name
+          </label>
+          <input
+            type="text"
+            id="author"
+            name="author"
+            value={bookInfo.author}
+            onChange={handleChange}
+            className="input input-bordered border-blue-600 "
+            placeholder="Author Name"
+            required
+          />
+        </div>
+
+        {/* genre */}
+        <div className="mb-6 flex flex-col w-2/4">
+          <label htmlFor="genre" className="text-lg font-bold mb-2">
+            Genre
+          </label>
+          <select
+            id="genre"
+            name="genre"
+            value={bookInfo.genre}
+            onChange={handleChange}
+            className="input input-bordered border-blue-600 "
+            required
+          >
+            <option value="">Select Genre</option>
+            <option value="Scary Story">Classic</option>
+            <option value="Mystery">Mystery</option>
+            <option value="Horror">Fiction</option>
+            <option value="Fantasy Horror">Fantasy</option>
+          </select>
+        </div>
+
+        {/* publication date */}
+        <div className="mb-6 flex flex-col w-2/4">
+          <label htmlFor="publicationDate" className="text-lg font-bold mb-2">
+            Publication Date
+          </label>
+          <input
+            type="date"
+            id="publicationDate"
+            name="publicationDate"
+            value={bookInfo.publicationDate}
+            onChange={handleChange}
+            className="input input-bordered border-blue-600"
+            required
+          />
+        </div>
+
+        {/* book image */}
+        <div className="mb-6 flex flex-col w-2/4">
+          <label htmlFor="image" className="text-lg font-bold mb-2">
+            Book Image
+          </label>
+          <input
+            type="text"
+            id="image"
+            name="image"
+            onChange={handleChange}
+            className="input input-bordered  border-blue-600"
+            placeholder="Image url.."
+            required
+          />
+        </div>
+
+        {load ? (
+          <span className="loading loading-infinity loading-lg"></span>
+        ) : (
+          <button
+            type="submit"
+            className="btn w-2/4 mb-6 rounded text-white  bg-slate-600 hover:bg-blue-950 transition duration-1000"
+          >
+            Add Book
+          </button>
+        )}
+      </form>
+    </div>
+  );
 };
 
 export default AddNewBook;

@@ -10,18 +10,22 @@ export default function Footer() {
       <footer className="footer p-10 text-base-content flex justify-around">
         <nav className="text-white">
           <header className="footer-title">Company</header>
-          <a className="link link-hover">
-            <Link to="/">Home</Link>
-          </a>
-          <a className="link link-hover">
-            <Link to="books">All Books</Link>
-          </a>
-          <a className="link link-hover">
-            <Link to="signup">Sign Up</Link>
-          </a>
-          <a className="link link-hover">
-            <Link to="signin">Sign In</Link>
-          </a>
+
+          <Link to="/" className="link link-hover">
+            Home
+          </Link>
+
+          <Link to="/books" className="link link-hover">
+            All Books
+          </Link>
+
+          <Link to="/signup" className="link link-hover">
+            Sign Up
+          </Link>
+
+          <Link to="/signin" className="link link-hover">
+            Sign In
+          </Link>
         </nav>
         <nav className="text-white">
           <header className="footer-title">Legal</header>
@@ -33,7 +37,6 @@ export default function Footer() {
       <footer className="footer px-10 py-4 border-t  text-base-content border-base-30">
         <aside className="items-center grid-flow-col">
           <span className="text-white text-3xl">
-            {" "}
             <BiBold />
           </span>
           <p className="text-white">
@@ -45,19 +48,16 @@ export default function Footer() {
           <div className="grid grid-flow-col gap-4">
             <a>
               <span className="text-white text-xl">
-                {" "}
                 <BiLogoFacebookCircle />
               </span>
             </a>
             <a>
               <span className="text-white text-xl">
-                {" "}
                 <BiLogoTwitter />
               </span>
             </a>
             <a>
               <span className="text-white text-xl">
-                {" "}
                 <BiLogoYoutube />
               </span>
             </a>

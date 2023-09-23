@@ -7,3 +7,13 @@ export interface IBook {
   publicationDate: string;
   reviews: string;
 }
+
+export interface IBookInfo {
+  title: string;
+  author: string;
+  genre: string;
+  publicationDate: string;
+  email: string;
+  image: string;
+  reviews?: [];
+}

@@ -15,7 +15,7 @@ const bookApi = api.injectEndpoints({
       query: ({ search, genre, publicationYear }) => ({
         url: "/books",
         params: { search, genre, publicationYear },
-        providesTags: ["addNewBook", "deleteBook"],
+        providesTags: ["add-book", "deleteBook"],
       }),
     }),
 
@@ -23,16 +23,28 @@ const bookApi = api.injectEndpoints({
 
     singleBook: builder.query({
       query: (id) => `/book/${id}`,
+      providesTags: ["bookDetails", "reviews"],
     }),
 
     // add new book
 
     addBook: builder.mutation({
-      query: ({ data }) => ({
-        url: `books/add-book`,
+      query: (data) => ({
+        url: "/add-book",
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: data,
       }),
+      invalidatesTags: ["add-book"],
+    }),
+
+    // get review
+
+    getReview: builder.query({
+      query: (id) => `/review/${id}`,
+      providesTags: ["reviews"],
     }),
 
     // post review
@@ -45,13 +57,6 @@ const bookApi = api.injectEndpoints({
       }),
       invalidatesTags: ["reviews"],
     }),
-
-    // get review
-
-    getReview: builder.query({
-      query: (id) => `/review/${id}`,
-      providesTags: ["reviews"],
-    }),
   }),
 });
 
@@ -59,6 +64,7 @@ export const {
   useGetLatestBooksQuery,
   useGetBooksQuery,
   useSingleBookQuery,
+  useAddBookMutation,
   usePostReviewMutation,
   useGetReviewQuery,
 } = bookApi;

@@ -22,9 +22,12 @@ export default function Navbar() {
     // navbar start
 
     <nav className="navbar bg-blue-950 flex justify-between">
-      <a className="btn btn-ghost hover:bg-inherit text-white normal-case text-xl ">
-        <Link to="/"> The BookShelf</Link>
-      </a>
+      <Link
+        to="/"
+        className="btn btn-ghost hover:bg-inherit text-white normal-case text-xl"
+      >
+        The BookShelf
+      </Link>
 
       <div className="navbar-end ">
         <details className="dropdown dropdown-end">
@@ -50,10 +53,12 @@ export default function Navbar() {
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-blue-950 rounded-box w-52"
           >
             <li>
-              <a className="text-slate-200 hover:text-white text-base">
-                {" "}
-                <Link to="/">Home</Link>
-              </a>
+              <Link
+                to="/"
+                className="text-slate-200 hover:text-white text-base"
+              >
+                Home
+              </Link>
             </li>
             <li>
               <h4 className="text-slate-200 hover:text-white text-base">
@@ -61,14 +66,20 @@ export default function Navbar() {
               </h4>
               <ul className="p-2">
                 <li>
-                  <a className="text-slate-200 hover:text-white text-base">
-                    <Link to="/books">All Books</Link>
-                  </a>
+                  <Link
+                    to="/books"
+                    className="text-slate-200 hover:text-white text-base"
+                  >
+                    All Books
+                  </Link>
                 </li>
                 <li>
-                  <a className="text-slate-200 hover:text-white text-base">
-                    <Link to="/add-new-book">Add New Book</Link>
-                  </a>
+                  <Link
+                    to="/add-book"
+                    className="text-slate-200 hover:text-white text-base"
+                  >
+                    Add New Book
+                  </Link>
                 </li>
               </ul>
             </li>
@@ -77,16 +88,20 @@ export default function Navbar() {
             {!user.email && (
               <>
                 <li>
-                  <a className="text-slate-200 hover:text-white text-base">
-                    {" "}
-                    <Link to="/signin">Sign In</Link>
-                  </a>
+                  <Link
+                    to="/signin"
+                    className="text-slate-200 hover:text-white text-base"
+                  >
+                    Sign In
+                  </Link>
                 </li>
                 <li>
-                  <a className="text-slate-200 hover:text-white text-base">
-                    {" "}
-                    <Link to="/signup">Sign Up</Link>
-                  </a>
+                  <Link
+                    to="/signup"
+                    className="text-slate-200 hover:text-white text-base"
+                  >
+                    Sign Up
+                  </Link>
                 </li>
               </>
             )}
@@ -94,10 +109,12 @@ export default function Navbar() {
             {/* logout */}
             {user.email && (
               <li>
-                <a className="text-slate-200 hover:text-white text-base">
-                  {" "}
-                  <Link to="/">Logout</Link>
-                </a>
+                <Link
+                  to="/"
+                  className="text-slate-200 hover:text-white text-base"
+                >
+                  Logout
+                </Link>
               </li>
             )}
           </ul>
@@ -106,20 +123,25 @@ export default function Navbar() {
       <div className="navbar-end hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <a className="text-slate-200 hover:text-white text-base">
-              <Link to="/">Home</Link>
-            </a>
+            <Link to="/" className="text-slate-200 hover:text-white text-base">
+              Home
+            </Link>
           </li>
           <li>
-            <a className="text-slate-200 hover:text-white text-base">
-              <Link to="/books">All Books</Link>
-            </a>
+            <Link
+              to="/books"
+              className="text-slate-200 hover:text-white text-base"
+            >
+              All Books
+            </Link>
           </li>
           <li>
-            <a className="text-slate-200 hover:text-white text-base">
-              {" "}
-              <Link to="/add-new-book">Add New Book</Link>
-            </a>
+            <Link
+              to="/add-book"
+              className="text-slate-200 hover:text-white text-base"
+            >
+              Add New
+            </Link>
           </li>
 
           {/* user sign in & sign up */}
@@ -127,16 +149,20 @@ export default function Navbar() {
           {!user.email && (
             <>
               <li>
-                <a className="text-slate-200 hover:text-white text-base">
-                  {" "}
-                  <Link to="/signin">Sign In</Link>
-                </a>
+                <Link
+                  to="/signin"
+                  className="text-slate-200 hover:text-white text-base"
+                >
+                  Sign In
+                </Link>
               </li>
               <li>
-                <a className="text-slate-200 hover:text-white text-base">
-                  {" "}
-                  <Link to="/signup">Sign Up</Link>
-                </a>
+                <Link
+                  to="/signup"
+                  className="text-slate-200 hover:text-white text-base"
+                >
+                  Sign Up
+                </Link>
               </li>
             </>
           )}
@@ -144,10 +170,12 @@ export default function Navbar() {
           {/* logout */}
           {user.email && (
             <li onClick={handleLogOut}>
-              <a className="text-slate-200 hover:text-white text-base">
-                {" "}
-                <Link to="/">Logout</Link>
-              </a>
+              <Link
+                to="/"
+                className="text-slate-200 hover:text-white text-base"
+              >
+                Logout
+              </Link>
             </li>
           )}
         </ul>
