@@ -32,39 +32,37 @@ const AddNewBook = () => {
   //
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setLoad(true);
 
     if (email) {
       bookInfo.email = email;
       bookInfo.reviews = [];
     }
+    setLoad(true);
 
-    try {
-      const response: any = await addBook(bookInfo);
-      console.log(response);
-      if (response?.data) {
-        alert("success");
-        // Reset the form fields
-        setBookInfo({
-          email: "",
-          title: "",
-          author: "",
-          genre: "",
-          publicationDate: "",
-          image: "",
-        });
-        setLoad(false);
+    const response: any = await addBook(bookInfo);
+    console.log(response);
 
-        navigate("/books");
-      } else {
-        alert("failed");
-        setLoad(false);
-      }
-    } catch (error) {
-      console.error("Error adding book:", error);
-      alert("An error occurred while adding the book");
+    if (response?.data) {
+      alert("success");
+
+      // Reset the form fields
+      setBookInfo({
+        email: "",
+        title: "",
+        author: "",
+        genre: "",
+        publicationDate: "",
+        image: "",
+      });
+
+      navigate("/books");
+      setLoad(false);
+    } else {
+      alert("failed");
+      setLoad(false);
     }
   };
+
   return (
     <div className="mx-auto bg-slate-300 py-8">
       <h2 className="text-5xl font-bold py-10 text-center ">Add New Book</h2>

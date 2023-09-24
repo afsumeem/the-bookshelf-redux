@@ -1,6 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useSingleBookQuery } from "../redux/features/books/booksApi";
+import {
+  useDeleteBookMutation,
+  useSingleBookQuery,
+} from "../redux/features/books/booksApi";
 import {
   BiSolidHeart,
   BiSolidTrash,
@@ -9,6 +13,8 @@ import {
 } from "react-icons/bi";
 import Reviews from "../components/Reviews";
 import { useAppSelector } from "../redux/hook";
+import swal from "sweetalert";
+import { useState } from "react";
 
 export default function BookDetails() {
   const navigate = useNavigate();
@@ -16,7 +22,34 @@ export default function BookDetails() {
   const { email } = useAppSelector((state) => state.user.user);
 
   const { data: book, isLoading, error } = useSingleBookQuery(id);
-  console.log(book);
+
+  //book details
+
+  const [deleteBook] = useDeleteBookMutation();
+  const [isDeleteLoad, setDeleteLoad] = useState(false);
+  const handleDeleteBook = () => {
+    swal({
+      title: "Are you sure?",
+      icon: "warning",
+      buttons: ["Cancel", "Yes"],
+      dangerMode: false,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        if (id) {
+          setDeleteLoad(true);
+          const response: any = await deleteBook(id);
+          if (response?.data) {
+            alert("success");
+            navigate("/books");
+            setDeleteLoad(false);
+          } else {
+            alert("failed");
+            setDeleteLoad(false);
+          }
+        }
+      }
+    });
+  };
 
   return (
     <>
@@ -52,9 +85,25 @@ export default function BookDetails() {
                 </button>
               )}
             </Link>
-            <button className="btn text-red-800 hover:text-white font-bold bg-red-300 hover:bg-red-600 transition duration-1000">
-              <BiSolidTrash /> Delete Book
-            </button>
+
+            {/* delete book */}
+
+            {email == book?.email &&
+              (isDeleteLoad ? (
+                <button
+                  disabled
+                  className="flex items-center px-4 py-[3px] bg-red-500 text-black rounded hover:bg-red-600 ml-3"
+                >
+                  Loading...
+                </button>
+              ) : (
+                <button
+                  onClick={handleDeleteBook}
+                  className="btn text-red-800 hover:text-white font-bold bg-red-300 hover:bg-red-600 transition duration-1000"
+                >
+                  <BiSolidTrash /> Delete Book
+                </button>
+              ))}
           </div>
         </div>
       </div>

@@ -16,7 +16,7 @@ const bookApi = api.injectEndpoints({
       query: ({ search, genre, publicationYear }) => ({
         url: "/allBooks",
         params: { search, genre, publicationYear },
-        providesTags: ["add-book", "deleteBook"],
+        providesTags: ["addBook", "deleteBook"],
       }),
     }),
 
@@ -33,9 +33,10 @@ const bookApi = api.injectEndpoints({
       query: (data) => ({
         url: "/books/add-book",
         method: "POST",
+
         body: data,
       }),
-      invalidatesTags: ["add-book"],
+      invalidatesTags: ["addBook"],
     }),
 
     //update books

@@ -25,8 +25,6 @@ export default function AllBooks() {
     publicationYear: selectPYear,
   });
 
-  console.log(data);
-
   return (
     <div className="mx-auto">
       <h2 className="text-5xl font-bold py-10 text-center ">All Books</h2>
