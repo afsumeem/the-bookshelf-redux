@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
+import { ChangeEvent, useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../redux/hook";
 import { IBookInfo } from "../types/types";
-import { ChangeEvent, useState, FormEvent } from "react";
 import { useAddBookMutation } from "../redux/features/books/booksApi";
 
 const AddNewBook = () => {
@@ -31,11 +32,13 @@ const AddNewBook = () => {
   //
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setLoad(true);
+
     if (email) {
       bookInfo.email = email;
       bookInfo.reviews = [];
     }
-    setLoad(true);
+
     try {
       const response: any = await addBook(bookInfo);
       console.log(response);
