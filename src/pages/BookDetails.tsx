@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSingleBookQuery } from "../redux/features/books/booksApi";
 import {
   BiSolidHeart,
@@ -8,9 +8,12 @@ import {
   BiEditAlt,
 } from "react-icons/bi";
 import Reviews from "../components/Reviews";
+import { useAppSelector } from "../redux/hook";
 
 export default function BookDetails() {
-  const { id } = useParams();
+  const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+  const { email } = useAppSelector((state) => state.user.user);
 
   const { data: book, isLoading, error } = useSingleBookQuery(id);
   console.log(book);
@@ -42,22 +45,17 @@ export default function BookDetails() {
             <button className="btn text-blue-950 hover:text-white font-bold bg-slate-300 hover:bg-blue-800 transition duration-1000">
               <BiBookReader />
             </button>
-            <button className="btn text-green-950 hover:text-white font-bold bg-green-400 hover:bg-green-800 transition duration-1000">
-              <BiEditAlt />
-            </button>
+            <Link to={`/edit-book/${book?._id}`}>
+              {email == book?.email && (
+                <button className="btn text-green-950 hover:text-white font-bold bg-green-400 hover:bg-green-800 transition duration-1000">
+                  <BiEditAlt /> Edit Book
+                </button>
+              )}
+            </Link>
             <button className="btn text-red-800 hover:text-white font-bold bg-red-300 hover:bg-red-600 transition duration-1000">
-              <BiSolidTrash />
+              <BiSolidTrash /> Delete Book
             </button>
           </div>
-          {/* <div>
-          <h2 className="text-xl font-bold ">Reviews about this book!</h2>
-          <hr />
-          <ol className="space-y-1 text-lg">
-            {book?.reviews?.map((review: string) => (
-              <li key={review}> - {review}</li>
-            ))}
-          </ol>
-        </div> */}
         </div>
       </div>
 

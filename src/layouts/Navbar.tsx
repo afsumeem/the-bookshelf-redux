@@ -140,7 +140,7 @@ export default function Navbar() {
               to="/add-book"
               className="text-slate-200 hover:text-white text-base"
             >
-              Add New
+              Add New Book
             </Link>
           </li>
 

@@ -1,20 +1,30 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useNavigate } from "react-router-dom";
+
+import { UpdateBookInfo } from "../types/types";
+import { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  useSingleBookQuery,
+  useUpdateBookMutation,
+} from "../redux/features/books/booksApi";
 import { useAppSelector } from "../redux/hook";
-import { IBookInfo } from "../types/types";
-import { ChangeEvent, useState, FormEvent } from "react";
-import { useAddBookMutation } from "../redux/features/books/booksApi";
 
-const AddNewBook = () => {
+//
+
+export default function EditBook() {
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-
   const { email } = useAppSelector((state) => state.user.user);
-  const [addBook] = useAddBookMutation();
 
-  const [load, setLoad] = useState(false);
+  // Call the useBookDetailsQuery hook
+  let bookData: UpdateBookInfo | null = null;
+  const { data } = useSingleBookQuery(id);
+  bookData = data;
 
-  const [bookInfo, setBookInfo] = useState<IBookInfo>({
-    email: "",
+  //
+  const [bookInfo, setBookInfo] = useState<UpdateBookInfo>({
+    email: email || "",
     title: "",
     author: "",
     genre: "",
@@ -22,54 +32,52 @@ const AddNewBook = () => {
     image: "",
   });
 
-  const handleChange = (
+  // Update the bookInfo state
+  useEffect(() => {
+    if (bookData) {
+      setBookInfo(bookData);
+    }
+  }, [bookData, id]);
+
+  //
+
+  const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     setBookInfo({ ...bookInfo, [e.target.name]: e.target.value });
   };
 
+  const [updateBook] = useUpdateBookMutation();
+  const [isLoading, setIsLoading] = useState(false);
+
   //
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (email) {
-      bookInfo.email = email;
-      bookInfo.reviews = [];
-    }
-    setLoad(true);
-    try {
-      const response: any = await addBook(bookInfo);
-      console.log(response);
-      if (response?.data) {
-        alert("success");
-        // Reset the form fields
-        setBookInfo({
-          email: "",
-          title: "",
-          author: "",
-          genre: "",
-          publicationDate: "",
-          image: "",
-        });
-        setLoad(false);
-
-        navigate("/books");
-      } else {
-        alert("failed");
-        setLoad(false);
+    setIsLoading(true);
+    const response: any = await updateBook({ id: id, data: bookInfo });
+    if (response?.data) {
+      alert("success");
+      if (id) {
+        navigate(`/book-details/${id}`);
       }
-    } catch (error) {
-      console.error("Error adding book:", error);
-      alert("An error occurred while adding the book");
+      setIsLoading(false);
+    } else {
+      alert("failed");
+      setIsLoading(false);
     }
   };
+
   return (
     <div className="mx-auto bg-slate-300 py-8">
-      <h2 className="text-5xl font-bold py-10 text-center ">Add New Book</h2>
+      <h1 className="text-5xl font-bold py-10 text-center">
+        Edit Book Information
+      </h1>
       <form
         onSubmit={handleSubmit}
         className="mb-6 flex flex-col justify-center items-center"
+        action="#"
       >
-        {/* book title */}
         <div className="mb-6 flex flex-col w-2/4">
           <label htmlFor="title" className="text-lg font-bold mb-2">
             Book Title
@@ -79,10 +87,9 @@ const AddNewBook = () => {
             id="title"
             name="title"
             value={bookInfo.title}
-            onChange={handleChange}
-            className="input input-bordered border-blue-600 "
+            onChange={handleInputChange}
+            className="input input-bordered border-blue-600"
             placeholder="Book Title"
-            required
           />
         </div>
 
@@ -96,10 +103,9 @@ const AddNewBook = () => {
             id="author"
             name="author"
             value={bookInfo.author}
-            onChange={handleChange}
+            onChange={handleInputChange}
             className="input input-bordered border-blue-600 "
             placeholder="Author Name"
-            required
           />
         </div>
 
@@ -112,15 +118,14 @@ const AddNewBook = () => {
             id="genre"
             name="genre"
             value={bookInfo.genre}
-            onChange={handleChange}
+            onChange={handleInputChange}
             className="input input-bordered border-blue-600 "
-            required
           >
             <option value="">Select Genre</option>
-            <option value="Scary Story">Classic</option>
+            <option value="Fantasy">Fantasy</option>
+            <option value="Science Fiction">Science Fiction</option>
             <option value="Mystery">Mystery</option>
-            <option value="Horror">Fiction</option>
-            <option value="Fantasy Horror">Fantasy</option>
+            <option value="Romance">Romance</option>
           </select>
         </div>
 
@@ -134,9 +139,8 @@ const AddNewBook = () => {
             id="publicationDate"
             name="publicationDate"
             value={bookInfo.publicationDate}
-            onChange={handleChange}
+            onChange={handleInputChange}
             className="input input-bordered border-blue-600"
-            required
           />
         </div>
 
@@ -148,15 +152,14 @@ const AddNewBook = () => {
           <input
             type="text"
             id="image"
+            onChange={handleInputChange}
             name="image"
-            onChange={handleChange}
             className="input input-bordered  border-blue-600"
             placeholder="Image url.."
-            required
           />
         </div>
 
-        {load ? (
+        {isLoading ? (
           <span className="loading loading-infinity loading-lg"></span>
         ) : (
           <button
@@ -169,6 +172,4 @@ const AddNewBook = () => {
       </form>
     </div>
   );
-};
-
-export default AddNewBook;
+}
