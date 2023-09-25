@@ -1,13 +1,11 @@
 import { Link } from "react-router-dom";
+import bannerImg from "../assets/undraw_reading_time_re_phf7.png";
 
 export default function Banner() {
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col lg:flex-row-reverse">
-        <img
-          src="/src/assets/undraw_reading_time_re_phf7.png"
-          className="max-w-sm rounded-lg"
-        />
+        <img src={bannerImg} className="max-w-sm rounded-lg" />
         <div className="md:text-center lg:text-left">
           <h1 className="text-5xl font-bold">
             Feast Your Eyes on <br /> A Good Book!
