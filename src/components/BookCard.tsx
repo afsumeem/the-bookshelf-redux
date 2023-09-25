@@ -26,7 +26,7 @@ export default function BookCard({ book }: IProps) {
       theme: "dark",
     });
   };
-
+  //add to read list
   const handleAddToReadList = (book: IBook) => {
     dispatch(addToReadList(book));
 
@@ -41,6 +41,7 @@ export default function BookCard({ book }: IProps) {
       theme: "dark",
     });
   };
+
   return (
     <div className="card bg-base-400 shadow-xl border border-state-400">
       <Link to={`/book-details/${book._id}`}>

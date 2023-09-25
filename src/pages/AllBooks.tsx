@@ -149,7 +149,9 @@ export default function AllBooks() {
           ) : (
             <>
               {isLoading ? (
-                <h3 className="text-3xl font-[500] text-center">Loading...</h3>
+                <h3 className="text-3xl font-[500] text-center">
+                  <span className="loading loading-ring loading-lg"></span>
+                </h3>
               ) : (
                 <div className="col-span-9 px-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-10 ">
                   {data?.data?.map((book: IBook, index: number) => (

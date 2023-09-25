@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "../redux/hook";
 import { createUser } from "../redux/features/users/userSlice";
 import { useEffect } from "react";
 
+//
 interface SignUpFormInput {
   email: string;
   password: string;
@@ -17,6 +18,7 @@ export default function SignUp() {
   } = useForm<SignUpFormInput>();
 
   const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.path || "/";
