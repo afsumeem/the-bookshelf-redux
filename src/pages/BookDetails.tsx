@@ -12,9 +12,12 @@ import {
   BiEditAlt,
 } from "react-icons/bi";
 import Reviews from "../components/Reviews";
-import { useAppSelector } from "../redux/hook";
+import { useAppDispatch, useAppSelector } from "../redux/hook";
 import swal from "sweetalert";
 import { useState } from "react";
+import { addToWishlist } from "../redux/features/wishlist/wishlistSlice";
+import { addToReadList } from "../redux/features/readList/readListSlice";
+import { IBook } from "../types/types";
 
 export default function BookDetails() {
   const navigate = useNavigate();
@@ -22,6 +25,18 @@ export default function BookDetails() {
   const { email } = useAppSelector((state) => state.user.user);
 
   const { data: book, isLoading, error } = useSingleBookQuery(id);
+
+  //
+
+  const dispatch = useAppDispatch();
+
+  const handleAddBook = (book: IBook) => {
+    dispatch(addToWishlist(book));
+  };
+
+  const handleAddToReadList = (book: IBook) => {
+    dispatch(addToReadList(book));
+  };
 
   //book details
 
@@ -73,12 +88,22 @@ export default function BookDetails() {
           </h4>
           {email && (
             <div className="card-actions justify-end absolute end-8 bottom-12">
-              <button className="btn text-blue-950 hover:text-white font-bold bg-slate-400 hover:bg-blue-950 transition duration-1000">
-                <BiSolidHeart />
-              </button>
-              <button className="btn text-blue-950 hover:text-white font-bold bg-slate-300 hover:bg-blue-800 transition duration-1000">
-                <BiBookReader />
-              </button>
+              <div className="tooltip" data-tip="Add to wish list">
+                <button
+                  onClick={() => handleAddBook(book)}
+                  className="btn text-blue-950 hover:text-white font-bold bg-slate-400 hover:bg-blue-950 transition duration-1000"
+                >
+                  <BiSolidHeart />
+                </button>
+              </div>
+              <div className="tooltip" data-tip="Add to read list">
+                <button
+                  onClick={() => handleAddToReadList(book)}
+                  className="btn text-blue-950 hover:text-white font-bold bg-slate-300 hover:bg-blue-800 transition duration-1000"
+                >
+                  <BiBookReader />
+                </button>
+              </div>
               <Link to={`/edit-book/${book?._id}`}>
                 {email == book?.email && (
                   <button className="btn text-green-950 hover:text-white font-bold bg-green-400 hover:bg-green-800 transition duration-1000">

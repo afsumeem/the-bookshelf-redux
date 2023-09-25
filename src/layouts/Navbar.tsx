@@ -3,7 +3,7 @@ import { setUser } from "../redux/features/users/userSlice";
 import { signOut } from "firebase/auth";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
 import { auth } from "../firebase/firebase";
-import WishList from "../components/WishList";
+// import WishList from "../components/WishList";
 import ReadList from "../components/ReadList";
 
 export default function Navbar() {
@@ -145,15 +145,11 @@ export default function Navbar() {
               Add New Book
             </Link>
           </li>
+
           {user.email && (
-            <>
-              <li>
-                <WishList />
-              </li>
-              <li>
-                <ReadList />
-              </li>
-            </>
+            <li>
+              <ReadList />
+            </li>
           )}
 
           {/* user sign in & sign up */}

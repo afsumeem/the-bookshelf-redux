@@ -43,18 +43,22 @@ export default function BookCard({ book }: IProps) {
           </h4>
         </div>
         <div className="justify-end flex me-4 mb-4 gap-4">
-          <button
-            onClick={() => handleAddBook(book)}
-            className="btn  text-xl rounded-full text-blue-950 hover:text-white font-bold bg-slate-400 hover:bg-blue-950 transition duration-1000"
-          >
-            <BiSolidHeart />
-          </button>
-          <button
-            onClick={() => handleAddToReadList(book)}
-            className="btn  text-xl rounded-full text-blue-950 hover:text-white font-bold bg-green-400 hover:bg-green-800 transition duration-1000"
-          >
-            <BiBookReader />
-          </button>
+          <div className="tooltip" data-tip="Add to wishlist">
+            <button
+              onClick={() => handleAddBook(book)}
+              className="btn  text-xl rounded-full text-blue-950 hover:text-white font-bold bg-slate-400 hover:bg-blue-950 transition duration-1000"
+            >
+              <BiSolidHeart />
+            </button>
+          </div>
+          <div className="tooltip" data-tip="Add to read list">
+            <button
+              onClick={() => handleAddToReadList(book)}
+              className="btn  text-xl rounded-full text-blue-950 hover:text-white font-bold bg-green-400 hover:bg-green-800 transition duration-1000"
+            >
+              <BiBookReader />
+            </button>
+          </div>
         </div>
       </div>
     </div>
