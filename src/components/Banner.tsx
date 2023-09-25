@@ -5,7 +5,7 @@ export default function Banner() {
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <img
-          src="/src/assets/undraw_reading_time_re_phf7.svg"
+          src="/src/assets/undraw_reading_time_re_phf7.png"
           className="max-w-sm rounded-lg"
         />
         <div className="md:text-center lg:text-left">
