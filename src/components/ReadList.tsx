@@ -12,12 +12,28 @@ export default function ReadList() {
   const { wishListBooks } = useAppSelector((state) => state.wishlist);
 
   const dispatch = useAppDispatch();
-  //
+
+  //wishlist
+  const handleRemoveWishlist = (book: IBook) => {
+    dispatch(removeFromWishList(book));
+    toast.success("book removed!", {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
+
+  //readlist
   const handleComplete = (book: IBook) => {
     dispatch(removeFromReadList(book));
     toast.success("Completed", {
       position: "bottom-right",
-      autoClose: 5000,
+      autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -53,7 +69,7 @@ export default function ReadList() {
                   className="card card-side my-2 rounded-md bg-slate-200 shadow-sm border w-full  mx-auto "
                 >
                   <figure className="p-2 ">
-                    <img src={book.image} alt={book.title} />
+                    <img className="h-8" src={book.image} alt={book.title} />
                   </figure>
                   <div className="card-body flex flex-row items-center justify-between p-2">
                     <div className="flex flex-col">
@@ -63,7 +79,7 @@ export default function ReadList() {
 
                     <div className="card-actions">
                       <button
-                        onClick={() => dispatch(removeFromWishList(book))}
+                        onClick={() => handleRemoveWishlist(book)}
                         className="text-xl rounded bg-blue-950 text-white"
                       >
                         <BiX />
@@ -87,7 +103,7 @@ export default function ReadList() {
                   className="card card-side my-2 rounded-md bg-slate-200 shadow-sm border w-full  mx-auto "
                 >
                   <figure className="p-2">
-                    <img src={book.image} alt={book.title} />
+                    <img className="h-8" src={book.image} alt={book.title} />
                   </figure>
                   <div className="card-body flex p-2 flex-row items-center justify-between">
                     <div className="flex flex-col">
