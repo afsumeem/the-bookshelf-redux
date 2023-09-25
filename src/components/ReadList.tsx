@@ -1,8 +1,10 @@
 import { useAppDispatch, useAppSelector } from "../redux/hook";
 import { removeFromReadList } from "../redux/features/readList/readListSlice";
 import { BiBookReader } from "react-icons/bi";
-import { BiX } from "react-icons/bi";
+import { BiX, BiCheck } from "react-icons/bi";
 import { removeFromWishList } from "../redux/features/wishlist/wishlistSlice";
+import { IBook } from "../types/types";
+import { toast } from "react-toastify";
 
 //
 export default function ReadList() {
@@ -10,6 +12,21 @@ export default function ReadList() {
   const { wishListBooks } = useAppSelector((state) => state.wishlist);
 
   const dispatch = useAppDispatch();
+  //
+  const handleComplete = (book: IBook) => {
+    dispatch(removeFromReadList(book));
+    toast.success("Completed", {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
+
   return (
     <div className="drawer">
       <input id="my-drawer" type="checkbox" className="drawer-toggle" />
@@ -79,12 +96,14 @@ export default function ReadList() {
                     </div>
 
                     <div className="card-actions">
-                      <button
-                        onClick={() => dispatch(removeFromReadList(book))}
-                        className="text-xl rounded bg-blue-950 text-white"
-                      >
-                        <BiX />
-                      </button>
+                      {!book.completed && (
+                        <button
+                          onClick={() => handleComplete(book)}
+                          className="text-xl rounded bg-blue-950 text-white"
+                        >
+                          <BiCheck />
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>

@@ -21,6 +21,17 @@ const readListSlice = createSlice({
         state.books.push(action.payload);
       }
     },
+
+    markAsComplete: (state, action: PayloadAction<IBook>) => {
+      state.books = state.books.filter((book) => {
+        if (book._id === action.payload._id) {
+          book.completed = true;
+          return book;
+        } else {
+          return book;
+        }
+      });
+    },
     removeFromReadList: (state, action: PayloadAction<IBook>) => {
       state.books = state.books.filter(
         (book) => book._id !== action.payload._id
@@ -29,6 +40,7 @@ const readListSlice = createSlice({
   },
 });
 
-export const { addToReadList, removeFromReadList } = readListSlice.actions;
+export const { addToReadList, markAsComplete, removeFromReadList } =
+  readListSlice.actions;
 
 export default readListSlice.reducer;

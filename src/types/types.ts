@@ -7,6 +7,7 @@ export interface IBook {
   author: string;
   publicationDate: string;
   reviews?: string;
+  completed?: boolean;
 }
 
 export interface UpdateBookInfo {
