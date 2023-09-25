@@ -4,6 +4,7 @@ import { signOut } from "firebase/auth";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
 import { auth } from "../firebase/firebase";
 import WishList from "../components/WishList";
+import ReadList from "../components/ReadList";
 
 export default function Navbar() {
   const { user } = useAppSelector((state) => state.user);
@@ -144,9 +145,16 @@ export default function Navbar() {
               Add New Book
             </Link>
           </li>
-          <li className="">
-            <WishList />
-          </li>
+          {user.email && (
+            <>
+              <li>
+                <WishList />
+              </li>
+              <li>
+                <ReadList />
+              </li>
+            </>
+          )}
 
           {/* user sign in & sign up */}
 

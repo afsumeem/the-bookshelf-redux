@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import wishlistReducer from "./features/wishlist/wishlistSlice";
 import { api } from "./api/apiSlice";
 import userReducer from "./features/users/userSlice";
-// import booksReducer from "./features/books/bookSlice"
+import readListReducer from "./features/readList/readListSlice";
 
 const store = configureStore({
   // reducer
@@ -10,7 +10,8 @@ const store = configureStore({
   reducer: {
     wishlist: wishlistReducer,
     user: userReducer,
-    // books:booksReducer,
+    readList: readListReducer,
+
     [api.reducerPath]: api.reducer,
   },
 

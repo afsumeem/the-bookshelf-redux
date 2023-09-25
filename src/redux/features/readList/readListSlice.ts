@@ -1,19 +1,19 @@
 import { IBook } from "../../../types/types";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-interface IWishList {
+interface IReadList {
   books: IBook[];
 }
 
-const initialState: IWishList = {
+const initialState: IReadList = {
   books: [],
 };
 
-const bookSlice = createSlice({
-  name: "wishlist",
+const readListSlice = createSlice({
+  name: "readList",
   initialState,
   reducers: {
-    addToWishlist: (state, action: PayloadAction<IBook>) => {
+    addToReadList: (state, action: PayloadAction<IBook>) => {
       const existing = state.books.find(
         (book) => book._id === action.payload._id
       );
@@ -21,7 +21,7 @@ const bookSlice = createSlice({
         state.books.push(action.payload);
       }
     },
-    removeFromWishList: (state, action: PayloadAction<IBook>) => {
+    removeFromReadList: (state, action: PayloadAction<IBook>) => {
       state.books = state.books.filter(
         (book) => book._id !== action.payload._id
       );
@@ -29,6 +29,6 @@ const bookSlice = createSlice({
   },
 });
 
-export const { addToWishlist, removeFromWishList } = bookSlice.actions;
+export const { addToReadList, removeFromReadList } = readListSlice.actions;
 
-export default bookSlice.reducer;
+export default readListSlice.reducer;
