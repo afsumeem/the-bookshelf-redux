@@ -28,7 +28,7 @@ export default function BookDetails() {
   const { email } = useAppSelector((state) => state.user.user);
 
   const { data: book, isLoading, error } = useSingleBookQuery(id);
-
+  console.log(isLoading, error);
   //
 
   const dispatch = useAppDispatch();
@@ -91,73 +91,78 @@ export default function BookDetails() {
 
   return (
     <>
-      <div className="card lg:card-side bg-base-100 shadow-xl my-24 mx-8 relative">
-        <figure>
-          <img src={book?.image} alt={book?.title} />
-        </figure>
-        <div className="card-body">
-          <h2 className="card-title uppercase text-2xl font-bold mb-2">
-            {book?.title}
-            <span className="badge lowercase badge-ghost">{book?.genre}</span>
-          </h2>
+      {isLoading ? (
+        <h3 className="text-3xl font-[500] text-center">
+          <span className="loading loading-ring loading-lg"></span>
+        </h3>
+      ) : (
+        <div className="card lg:card-side bg-base-100 shadow-xl my-24 mx-8 relative">
+          <figure>
+            <img src={book?.image} alt={book?.title} />
+          </figure>
+          <div className="card-body">
+            <h2 className="card-title uppercase text-2xl font-bold mb-2">
+              {book?.title}
+              <span className="badge lowercase badge-ghost">{book?.genre}</span>
+            </h2>
 
-          <h2 className="mb-8">
-            by <span>{book?.author}</span>
-          </h2>
+            <h2 className="mb-8">
+              by <span>{book?.author}</span>
+            </h2>
 
-          <h4 className="">
-            Publication Date:
-            <span> {book?.publicationDate}</span>
-          </h4>
-          {email && (
-            <div className="card-actions justify-end absolute end-8 bottom-12">
-              <div className="tooltip" data-tip="Add to wish list">
-                <button
-                  onClick={() => handleAddBook(book)}
-                  className="btn text-blue-950 hover:text-white font-bold bg-slate-400 hover:bg-blue-950 transition duration-1000"
-                >
-                  <BiSolidHeart />
-                </button>
-              </div>
-              <div className="tooltip" data-tip="Add to read list">
-                <button
-                  onClick={() => handleAddToReadList(book)}
-                  className="btn text-blue-950 hover:text-white font-bold bg-slate-300 hover:bg-blue-800 transition duration-1000"
-                >
-                  <BiBookReader />
-                </button>
-              </div>
-              <Link to={`/edit-book/${book?._id}`}>
-                {email == book?.email && (
-                  <button className="btn text-green-950 hover:text-white font-bold bg-green-400 hover:bg-green-800 transition duration-1000">
-                    <BiEditAlt /> Edit Book
-                  </button>
-                )}
-              </Link>
-
-              {/* delete book */}
-
-              {email == book?.email &&
-                (isDeleteLoad ? (
+            <h4 className="">
+              Publication Date:
+              <span> {book?.publicationDate}</span>
+            </h4>
+            {email && (
+              <div className="card-actions justify-end absolute end-8 bottom-12">
+                <div className="tooltip" data-tip="Add to wish list">
                   <button
-                    disabled
-                    className="flex items-center px-4 py-[3px] bg-red-500 text-black rounded hover:bg-red-600 ml-3"
+                    onClick={() => handleAddBook(book)}
+                    className="btn text-blue-950 hover:text-white font-bold bg-slate-400 hover:bg-blue-950 transition duration-1000"
                   >
-                    Loading...
+                    <BiSolidHeart />
                   </button>
-                ) : (
+                </div>
+                <div className="tooltip" data-tip="Add to read list">
                   <button
-                    onClick={handleDeleteBook}
-                    className="btn text-red-800 hover:text-white font-bold bg-red-300 hover:bg-red-600 transition duration-1000"
+                    onClick={() => handleAddToReadList(book)}
+                    className="btn text-blue-950 hover:text-white font-bold bg-slate-300 hover:bg-blue-800 transition duration-1000"
                   >
-                    <BiSolidTrash /> Delete Book
+                    <BiBookReader />
                   </button>
-                ))}
-            </div>
-          )}
+                </div>
+                <Link to={`/edit-book/${book?._id}`}>
+                  {email == book?.email && (
+                    <button className="btn text-green-950 hover:text-white font-bold bg-green-400 hover:bg-green-800 transition duration-1000">
+                      <BiEditAlt /> Edit Book
+                    </button>
+                  )}
+                </Link>
+
+                {/* delete book */}
+
+                {email == book?.email &&
+                  (isDeleteLoad ? (
+                    <button
+                      disabled
+                      className="flex items-center px-4 py-[3px] bg-red-500 text-black rounded hover:bg-red-600 ml-3"
+                    >
+                      Loading...
+                    </button>
+                  ) : (
+                    <button
+                      onClick={handleDeleteBook}
+                      className="btn text-red-800 hover:text-white font-bold bg-red-300 hover:bg-red-600 transition duration-1000"
+                    >
+                      <BiSolidTrash /> Delete Book
+                    </button>
+                  ))}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-
+      )}
       {/* review  */}
       <hr />
       <Reviews id={id!} />

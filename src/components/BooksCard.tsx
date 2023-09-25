@@ -5,7 +5,7 @@ import { useGetLatestBooksQuery } from "../redux/features/books/booksApi";
 
 export default function BooksCard() {
   const { data, isLoading, error } = useGetLatestBooksQuery(undefined);
-
+  console.log(error);
   return (
     <div className="container mx-auto px-2">
       <div>
