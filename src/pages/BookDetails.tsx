@@ -98,7 +98,7 @@ export default function BookDetails() {
       ) : (
         <div className="card lg:card-side bg-base-100 shadow-xl my-24 mx-8 relative">
           <figure>
-            <img src={book?.image} alt={book?.title} />
+            <img className="h-80" src={book?.image} alt={book?.title} />
           </figure>
           <div className="card-body">
             <h2 className="card-title uppercase text-2xl font-bold mb-2">
