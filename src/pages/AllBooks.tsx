@@ -10,8 +10,30 @@ export default function AllBooks() {
   const { user } = useAppSelector((state) => state.user);
   //
 
-  const bookGenre = ["Mystery", "Fiction", "Fantasy"];
-  const publicationYear = ["2000", "1995", "2002"];
+  const bookGenre = [
+    "Mystery",
+    "Fiction",
+    "Fantasy",
+    "Novel",
+    "Thriller",
+    "Historical Fiction",
+    "Biography",
+    "Comedy",
+    "Poetry",
+  ];
+  const publicationYear = [
+    "1990",
+    "1992",
+    "2023",
+    "2022",
+    "2021",
+    "2020",
+    "2000",
+    "2001",
+    "1998",
+    "1997",
+    "2010",
+  ];
 
   //search and filter functionality for books
 
@@ -38,7 +60,7 @@ export default function AllBooks() {
           />
         </form>
         {user.email && (
-          <Link to="/add-book">
+          <Link to="/add-new-book">
             {" "}
             <button className="btn mx-8 rounded text-blue-950 hover:text-white  bg-slate-400 hover:bg-blue-950 transition duration-1000">
               Add new

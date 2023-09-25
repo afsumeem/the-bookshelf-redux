@@ -13,11 +13,14 @@ import {
 } from "react-icons/bi";
 import Reviews from "../components/Reviews";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
-import swal from "sweetalert";
 import { useState } from "react";
 import { addToWishlist } from "../redux/features/wishlist/wishlistSlice";
 import { addToReadList } from "../redux/features/readList/readListSlice";
 import { IBook } from "../types/types";
+import { toast } from "react-toastify";
+import swal from "sweetalert";
+
+//
 
 export default function BookDetails() {
   const navigate = useNavigate();
@@ -38,27 +41,47 @@ export default function BookDetails() {
     dispatch(addToReadList(book));
   };
 
-  //book details
+  //book delete
 
   const [deleteBook] = useDeleteBookMutation();
   const [isDeleteLoad, setDeleteLoad] = useState(false);
+
+  //
   const handleDeleteBook = () => {
     swal({
       title: "Are you sure?",
-      icon: "warning",
       buttons: ["Cancel", "Yes"],
-      dangerMode: false,
-    }).then(async (willDelete) => {
+      dangerMode: true,
+    }).then(async (willDelete: any) => {
       if (willDelete) {
         if (id) {
           setDeleteLoad(true);
           const response: any = await deleteBook(id);
+
           if (response?.data) {
-            alert("success");
+            toast.success("Book Deleted!", {
+              position: "bottom-right",
+              autoClose: 4000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
             navigate("/books");
             setDeleteLoad(false);
           } else {
-            alert("failed");
+            toast.error("Failed to Delete Book!", {
+              position: "bottom-right",
+              autoClose: 4000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
             setDeleteLoad(false);
           }
         }

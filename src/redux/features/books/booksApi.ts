@@ -2,24 +2,6 @@ import { api } from "../../api/apiSlice";
 
 const bookApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    //get latest books
-    getLatestBooks: builder.query({
-      query: () => ({
-        url: "/books",
-        providesTags: ["books"],
-      }),
-    }),
-
-    // get all books
-
-    getBooks: builder.query({
-      query: ({ search, genre, publicationYear }) => ({
-        url: "/allBooks",
-        params: { search, genre, publicationYear },
-        providesTags: ["addBook", "deleteBook"],
-      }),
-    }),
-
     //get single book
 
     singleBook: builder.query({
@@ -58,6 +40,24 @@ const bookApi = api.injectEndpoints({
         method: "DELETE",
       }),
       invalidatesTags: ["deleteBook"],
+    }),
+
+    //get latest books
+    getLatestBooks: builder.query({
+      query: () => ({
+        url: "/books",
+        providesTags: ["books"],
+      }),
+    }),
+
+    // get all books
+
+    getBooks: builder.query({
+      query: ({ search, genre, publicationYear }) => ({
+        url: "/allBooks",
+        params: { search, genre, publicationYear },
+        providesTags: ["addBook", "deleteBook"],
+      }),
     }),
 
     // get review

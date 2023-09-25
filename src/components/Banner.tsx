@@ -1,4 +1,4 @@
-import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Banner() {
   return (
@@ -18,7 +18,11 @@ export default function Banner() {
             the outside world, improving their reading, writing and speaking
             skills as well as boosting memory and intelligence.
           </p>
-          <button className="btn text-white bg-blue-950">See Books</button>
+          <Link to="books">
+            <button className="btn text-white hover:bg-blue-950 bg-blue-900">
+              See Books
+            </button>
+          </Link>
         </div>
       </div>
     </div>

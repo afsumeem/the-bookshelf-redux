@@ -3,8 +3,24 @@ import { BiLogoFacebookCircle } from "react-icons/bi";
 import { BiLogoTwitter } from "react-icons/bi";
 import { BiLogoYoutube } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../redux/hook";
+import { signOut } from "firebase/auth";
+import { setUser } from "../redux/features/users/userSlice";
+import { auth } from "../firebase/firebase";
 
 export default function Footer() {
+  const { user } = useAppSelector((state) => state.user);
+
+  const dispatch = useAppDispatch();
+
+  // logout functionality
+
+  const handleLogOut = () => {
+    console.log("logout");
+    signOut(auth).then(() => {
+      dispatch(setUser(null));
+    });
+  };
   return (
     <footer className="bg-blue-950 ">
       <footer className="footer p-10 text-base-content flex justify-around">
@@ -18,14 +34,27 @@ export default function Footer() {
           <Link to="/books" className="link link-hover">
             All Books
           </Link>
+          {!user.email && (
+            <>
+              <Link to="/signup" className="link link-hover">
+                Sign Up
+              </Link>
 
-          <Link to="/signup" className="link link-hover">
-            Sign Up
-          </Link>
-
-          <Link to="/signin" className="link link-hover">
-            Sign In
-          </Link>
+              <Link to="/signin" className="link link-hover">
+                Sign In
+              </Link>
+            </>
+          )}
+          {/* logout */}
+          {user.email && (
+            <Link
+              onClick={handleLogOut}
+              to="/"
+              className="text-slate-200 hover:text-white text-base"
+            >
+              Logout
+            </Link>
+          )}
         </nav>
         <nav className="text-white">
           <header className="footer-title">Legal</header>

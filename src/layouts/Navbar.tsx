@@ -123,7 +123,7 @@ export default function Navbar() {
         </details>
       </div>
       <div className="navbar-end hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
+        <ul className="menu menu-horizontal px-1 text-white">
           <li>
             <Link to="/" className="text-slate-200 hover:text-white text-base">
               Home
@@ -139,18 +139,12 @@ export default function Navbar() {
           </li>
           <li>
             <Link
-              to="/add-book"
+              to="/add-new-book"
               className="text-slate-200 hover:text-white text-base"
             >
               Add New Book
             </Link>
           </li>
-
-          {user.email && (
-            <li>
-              <ReadList />
-            </li>
-          )}
 
           {/* user sign in & sign up */}
 
@@ -188,6 +182,12 @@ export default function Navbar() {
           )}
         </ul>
       </div>
+
+      {user.email && (
+        <li className="mr-4">
+          <ReadList />
+        </li>
+      )}
     </nav>
   );
 }

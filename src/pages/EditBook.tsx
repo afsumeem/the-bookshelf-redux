@@ -9,6 +9,7 @@ import {
   useUpdateBookMutation,
 } from "../redux/features/books/booksApi";
 import { useAppSelector } from "../redux/hook";
+import { toast } from "react-toastify";
 
 //
 
@@ -57,13 +58,31 @@ export default function EditBook() {
     setIsLoading(true);
     const response: any = await updateBook({ id: id, data: bookInfo });
     if (response?.data) {
-      alert("success");
+      toast.success("Book Updated successfully!", {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
       if (id) {
         navigate(`/book-details/${id}`);
       }
       setIsLoading(false);
     } else {
-      alert("failed");
+      toast.error("Failed to update book!", {
+        position: "bottom-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
       setIsLoading(false);
     }
   };
@@ -121,7 +140,7 @@ export default function EditBook() {
             onChange={handleInputChange}
             className="input input-bordered border-blue-600 "
           >
-            <option value="">Select Genre</option>
+            <option value={bookInfo.genre}>Select Genre</option>
             <option value="Fantasy">Fantasy</option>
             <option value="Science Fiction">Science Fiction</option>
             <option value="Mystery">Mystery</option>
@@ -152,6 +171,7 @@ export default function EditBook() {
           <input
             type="text"
             id="image"
+            value={bookInfo.image}
             onChange={handleInputChange}
             name="image"
             className="input input-bordered  border-blue-600"

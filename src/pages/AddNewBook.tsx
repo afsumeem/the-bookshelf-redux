@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
+import { toast } from "react-toastify";
 import { ChangeEvent, useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../redux/hook";
@@ -40,10 +40,19 @@ const AddNewBook = () => {
     setLoad(true);
 
     const response: any = await addBook(bookInfo);
-    console.log(response);
+    console.log(response?.data);
 
     if (response?.data) {
-      alert("success");
+      toast.success("New book added", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
 
       // Reset the form fields
       setBookInfo({
@@ -58,7 +67,16 @@ const AddNewBook = () => {
       navigate("/books");
       setLoad(false);
     } else {
-      alert("failed");
+      toast.error("Something is wrong! Failed to added new book!", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
       setLoad(false);
     }
   };
@@ -118,10 +136,16 @@ const AddNewBook = () => {
             required
           >
             <option value="">Select Genre</option>
-            <option value="Scary Story">Classic</option>
             <option value="Mystery">Mystery</option>
-            <option value="Horror">Fiction</option>
-            <option value="Fantasy Horror">Fantasy</option>
+            <option value="Fiction">Fiction</option>
+            <option value="Fantasy">Fantasy</option>
+            <option value="Novel">Novel</option>
+            <option value="Poetry">Poetry</option>
+            <option value="">Select Genre</option>
+            <option value="Thriller">Thriller</option>
+            <option value="Biography">Biography</option>
+            <option value="Comedy">Comedy</option>
+            <option value="Historical Fiction">Historical Fiction</option>
           </select>
         </div>
 
