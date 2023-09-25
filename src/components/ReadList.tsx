@@ -50,9 +50,11 @@ export default function ReadList() {
         {/* Page content here */}
         <label
           htmlFor="my-drawer"
-          className=" text-3xl mx-auto text-white active:bg-inherit focus:bg-inherit"
+          className="indicator text-3xl mx-auto text-white active:bg-inherit focus:bg-inherit"
         >
           <BiBookReader />
+
+          <span className="badge badge-xs badge-error indicator-item"></span>
         </label>
       </div>
       <div className="drawer-side z-10 mx-0">
